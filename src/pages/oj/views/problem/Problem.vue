@@ -148,7 +148,6 @@
             <p>{{$t('m.Memory_Limit')}}</p>
             <p>{{problem.memory_limit}}MB</p></li>
           <li>
-          <li>
             <p>{{$t('m.IOMode')}}</p>
             <p>{{problem.io_mode.io_mode}}</p>
           </li>
@@ -162,17 +161,17 @@
             <p>{{$t('m.Score')}}</p>
             <p>{{problem.total_score}}</p>
           </li>
-          <li>
-            <p>{{$t('m.Tags')}}</p>
-            <p>
-              <Poptip trigger="hover" placement="left-end">
-                <a>{{$t('m.Show')}}</a>
-                <div slot="content">
-                  <Tag v-for="tag in problem.tags" :key="tag">{{tag}}</Tag>
-                </div>
-              </Poptip>
-            </p>
-          </li>
+            <li v-if="!this.contestID">
+              <p>{{$t('m.Tags')}}</p>
+              <p>
+                <Poptip trigger="hover" placement="left-end">
+                  <a>{{$t('m.Show')}}</a>
+                  <div slot="content">
+                    <Tag v-for="tag in problem.tags" :key="tag">{{tag}}</Tag>
+                  </div>
+                </Poptip>
+              </p>
+            </li>
         </ul>
       </Card>
 

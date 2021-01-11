@@ -169,11 +169,12 @@ export default {
       }
     })
   },
-  checkContestPassword (contestID, password) {
+  checkContestPassword (contestID, Password, Username) {
     return ajax('contest/password', 'post', {
       data: {
         contest_id: contestID,
-        password
+        password: Password,
+        username: Username
       }
     })
   },

@@ -120,7 +120,7 @@ export const m = {
   ContestType: '比赛类型',
   Creator: '发起人',
   Public: '公开',
-  Password_Protected: '密码保护',
+  Password_Protected: '保护',
   // ContestList.vue
   Rule: '赛制',
   OI: 'OI',

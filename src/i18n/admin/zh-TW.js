@@ -95,10 +95,12 @@ export const m = {
   Contest_Start_Time: '開始時間',
   Contest_End_Time: '結束時間',
   Contest_Password: '密碼',
+  Contest_Password_Place_Holder: '密碼（使用允許用戶列表時必填）',
   Contest_Rule_Type: '規則',
   Real_Time_Rank: '即時排名',
   Contest_Status: '狀態',
   Allowed_IP_Ranges: '允許的 IP 範圍',
+  Allowed_Users: '允許用戶（加載CSV）',
   CIDR_Network: 'CIDR Network',
   // Dashboard.vue
   Last_Login: '最後登入狀態',

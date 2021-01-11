@@ -80,9 +80,9 @@
   import api from '@oj/api'
   import { mapState, mapGetters, mapActions } from 'vuex'
   import { types } from '@/store'
-  import { CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
+  import { STORAGE_KEY, CONTEST_STATUS_REVERSE, CONTEST_STATUS } from '@/utils/constants'
   import time from '@/utils/time'
-
+  import storage from '@/utils/storage'
   export default {
     name: 'ContestDetail',
     components: {},
@@ -93,6 +93,7 @@
         btnLoading: false,
         contestID: '',
         contestPassword: '',
+        username: '',
         columns: [
           {
             title: this.$i18n.t('m.StartAt'),
@@ -109,7 +110,11 @@
           {
             title: this.$i18n.t('m.ContestType'),
             render: (h, params) => {
-              return h('span', this.$i18n.t('m.' + params.row.contest_type.replace(' ', '_')))
+              if (params.row.contest_type === 'Password Protected') {
+                return h('span', this.$i18n.t('m.Password_Protected'))
+              } else {
+                return h('span', this.$i18n.t('m.Public'))
+              }
             }
           },
           {
@@ -152,7 +157,9 @@
           return
         }
         this.btnLoading = true
-        api.checkContestPassword(this.contestID, this.contestPassword).then((res) => {
+        this.username = storage.get(STORAGE_KEY.USERNAME)
+        // window.console.log(this.username)测试
+        api.checkContestPassword(this.contestID, this.contestPassword, this.username).then((res) => {
           this.$success('Succeeded')
           this.$store.commit(types.CONTEST_ACCESS, {access: true})
           this.btnLoading = false

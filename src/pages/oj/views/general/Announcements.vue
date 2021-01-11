@@ -41,7 +41,6 @@
 <script>
   import api from '@oj/api'
   import Pagination from '@oj/components/Pagination'
-
   export default {
     name: 'Announcement',
     components: {
@@ -90,10 +89,12 @@
       goAnnouncement (announcement) {
         this.announcement = announcement
         this.listVisible = false
+        // Event.$emit('a-msg',this.listVisible)
       },
       goBack () {
         this.listVisible = true
         this.announcement = ''
+        // Event.$emit('b-msg',this.listVisible)
       }
     },
     computed: {
@@ -151,16 +152,13 @@
       }
     }
   }
-
   .content-container {
     padding: 0 20px 20px 20px;
   }
-
   .no-announcement {
     text-align: center;
     font-size: 16px;
   }changeLocale
-
   .announcement-animate-enter-active {
     animation: fadeIn 1s;
   }

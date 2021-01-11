@@ -31,7 +31,8 @@ import 'echarts/lib/component/legend'
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/toolbox'
 import 'echarts/lib/component/markPoint'
-
+import { addListener, launch } from 'devtools-detector'
+import {Carousel, CarouselItem} from 'element-ui'
 // register global utility filters.
 Object.keys(filters).forEach(key => {
   Vue.filter(key, filters[key])
@@ -42,6 +43,8 @@ Vue.use(iView, {
   i18n: (key, value) => i18n.t(key, value)
 })
 
+Vue.use(Carousel)
+Vue.use(CarouselItem)
 Vue.use(VueClipboard)
 Vue.use(highlight)
 Vue.use(katex)
@@ -59,8 +62,18 @@ Vue.component(Panel.name, Panel)
 Vue.prototype.$Message.config({
   duration: 2
 })
-Vue.prototype.$error = (s) => Vue.prototype.$Message.error(s)
-Vue.prototype.$info = (s) => Vue.prototype.$Message.info(s)
-Vue.prototype.$success = (s) => Vue.prototype.$Message.success(s)
+Vue.prototype.$error = (s) => Vue.prototype.$Notice.error({title: 'Error', desc: s})
+Vue.prototype.$info = (s) => Vue.prototype.$Notice.info({title: 'Info', desc: s})
+Vue.prototype.$success = (s) => Vue.prototype.$Notice.success({title: 'Success', desc: s})
 
 new Vue(Vue.util.extend({router, store, i18n}, App)).$mount('#app')
+// 开启防作弊
+// addListener(
+//   // eslint-disable-next-line no-return-assign
+//   isOpen => {
+//     if (isOpen) {
+//       window.close()
+//     }
+//   })
+//   // 2. lanuch detect
+// launch()

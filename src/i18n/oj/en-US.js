@@ -120,7 +120,7 @@ export const m = {
   ContestType: 'ContestType',
   Creator: 'Creator',
   Public: 'Public',
-  Password_Protected: 'Password Protected',
+  Password_Protected: 'Protected',
   // ContestList.vue
   Rule: 'Rule',
   OI: 'OI',
@@ -253,6 +253,8 @@ export const m = {
   Compile_Error: 'Compile Error',
   Rejudge: 'Rejudge',
   // UserHome.vue
+  Enter_Contest: 'Enter the game',
+  Preview_Contest: 'Preview',
   UserHomeSolved: 'Solved',
   UserHomeserSubmissions: 'Submissions',
   UserHomeScore: 'Score',

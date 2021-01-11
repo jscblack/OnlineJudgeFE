@@ -115,6 +115,7 @@ export const PROBLEM_PERMISSION = {
 
 export const STORAGE_KEY = {
   AUTHED: 'authed',
+  USERNAME: 'username',
   PROBLEM_CODE: 'problemCode',
   languages: 'languages'
 }

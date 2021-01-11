@@ -104,10 +104,12 @@ export const m = {
   Contest_Start_Time: '开始时间',
   Contest_End_Time: '结束时间',
   Contest_Password: '密码',
+  Contest_Password_Place_Holder: '密码 (使用允许用户列表时必填)',
   Contest_Rule_Type: '规则',
   Real_Time_Rank: '实时排名',
   Contest_Status: '状态',
   Allowed_IP_Ranges: '允许的 IP 范围',
+  Allowed_Users: '允许的用户 （上传 CSV）',
   CIDR_Network: 'CIDR 网络',
   // Dashboard.vue
   Last_Login: '最后登录状态',

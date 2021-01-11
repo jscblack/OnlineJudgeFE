@@ -104,10 +104,12 @@ export const m = {
   Contest_Start_Time: 'Start Time',
   Contest_End_Time: 'End Time',
   Contest_Password: 'Password',
+  Contest_Password_Place_Holder: 'Password (Required when using allowed users)',
   Contest_Rule_Type: 'Contest Rule Type',
   Real_Time_Rank: 'Real Time Rank',
   Contest_Status: 'Status',
   Allowed_IP_Ranges: 'Allowed IP Ranges',
+  Allowed_Users: 'Allowed Users (Upload CSV)',
   CIDR_Network: 'CIDR Network',
   // Dashboard.vue
   Last_Login: 'Last Login',

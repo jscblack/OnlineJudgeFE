@@ -33,6 +33,11 @@ const mutations = {
       i18n.locale = profile.language
     }
     storage.set(STORAGE_KEY.AUTHED, !!profile.user)
+    if (!profile.user) {
+      storage.set(STORAGE_KEY.USERNAME, '')
+    } else {
+      storage.set(STORAGE_KEY.USERNAME, profile.user.username)
+    }
   }
 }
 

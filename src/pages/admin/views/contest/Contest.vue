@@ -33,7 +33,7 @@
           </el-col>
           <el-col :span="8">
             <el-form-item :label="$t('m.Contest_Password')">
-              <el-input v-model="contest.password" :placeholder="$t('m.Contest_Password')"></el-input>
+              <el-input v-model="contest.password" :placeholder="$t('m.Contest_Password_Place_Holder')"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -75,6 +75,39 @@
               </div>
             </el-form-item>
           </el-col>
+          <el-col :span="24">
+            <el-form-item :label="$t('m.Allowed_Users')">
+              <el-upload v-if="!contest.allowed_users.length"
+                        action=""
+                        :show-file-list="false"
+                        accept=".csv"
+                        :before-upload="handleUsersCSV">
+                <el-button size="small" icon="el-icon-fa-upload" type="primary">Choose File</el-button>
+              </el-upload>
+              <template v-else>
+                <el-table :data="uploadUsersPage">
+                  <el-table-column label="Imported users:">
+                    <template slot-scope="{row}">
+                      {{row}}
+                    </template>
+                  </el-table-column>
+                </el-table>
+                <div class="panel-options">
+                  <el-button type="warning" size="small"
+                            icon="el-icon-fa-undo"
+                            @click="handleResetData">Reset Data
+                  </el-button>
+                  <el-pagination
+                    class="page"
+                    layout="prev, pager, next"
+                    :page-size="uploadUsersPageSize"
+                    :current-page.sync="uploadUsersCurrentPage"
+                    :total="contest.allowed_users.length">
+                  </el-pagination>
+                </div>
+              </template>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <save @click.native="saveContest"></save>
@@ -83,6 +116,7 @@
 </template>
 
 <script>
+  import papa from 'papaparse'
   import api from '../../api.js'
   import Simditor from '../../components/Simditor.vue'
 
@@ -106,8 +140,12 @@
           visible: true,
           allowed_ip_ranges: [{
             value: ''
-          }]
-        }
+          }],
+          allowed_users: []
+        },
+        uploadUsersPage: [],
+        uploadUsersCurrentPage: 1,
+        uploadUsersPageSize: 15
       }
     },
     methods: {
@@ -134,6 +172,36 @@
         if (index !== -1) {
           this.contest.allowed_ip_ranges.splice(index, 1)
         }
+      },
+      handleUsersCSV (file) {
+        papa.parse(file, {
+          complete: (results) => {
+            let data = []
+            results.data.forEach(element => {
+              if (element instanceof Array) {
+                if (element[0]) data.push(element[0])
+              } else if (element) data.push(element)
+            })
+            let delta = results.data.length - data.length
+            if (delta > 0) {
+              this.$warning(delta + ' users have been filtered due to empty value')
+            }
+            this.uploadUsersCurrentPage = 1
+            this.contest.allowed_users = data
+            this.uploadUsersPage = data.slice(0, this.uploadUsersPageSize)
+          },
+          error: (error) => {
+            this.$error(error)
+          }
+        })
+      },
+      handleResetData () {
+        this.contest.allowed_users = []
+      }
+    },
+    watch: {
+      'uploadUsersCurrentPage' (page) {
+        this.uploadUsersPage = this.contest.allowed_users.slice((page - 1) * this.uploadUsersPageSize, page * this.uploadUsersPageSize)
       }
     },
     mounted () {
@@ -151,6 +219,11 @@
           }
           data.allowed_ip_ranges = ranges
           this.contest = data
+          if (data.allowed_users != null) {
+            this.uploadUsersCurrentPage = 1
+            this.contest.allowed_users = data.allowed_users
+            this.uploadUsersPage = data.allowed_users.slice(0, this.uploadUsersPageSize)
+          }
         }).catch(() => {
         })
       }

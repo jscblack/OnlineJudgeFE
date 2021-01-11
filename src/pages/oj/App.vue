@@ -7,6 +7,8 @@
       </transition>
       <div class="footer">
         <p v-html="website.website_footer"></p>
+        <p>Redesigned and maintained by <a href="https://www.yilantingfeng.site">Gehrychiang</a> and <a href="https://blog.csdn.net/csg999/article/details/112447661">Guoguang</a></p>
+        <p>If you have any problems, please contact QQ group: 154912356</p>
         <p>Powered by <a href="https://github.com/QingdaoU/OnlineJudge">OnlineJudge</a>
           <span v-if="version">&nbsp; Version: {{ version }}</span>
         </p>
@@ -19,7 +21,6 @@
 <script>
   import { mapActions, mapState } from 'vuex'
   import NavBar from '@oj/components/NavBar.vue'
-
   export default {
     name: 'app',
     components: {

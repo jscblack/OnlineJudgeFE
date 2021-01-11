@@ -86,6 +86,10 @@
             this.btnLoginLoading = false
             this.changeModalStatus({visible: false})
             this.getProfile()
+            // this.$Notice.success({
+            //   title: this.$i18n.t('m.Welcome_back'),
+            //   desc: 'hhhhhh'
+            // })
             this.$success(this.$i18n.t('m.Welcome_back'))
           }, _ => {
             this.btnLoginLoading = false
